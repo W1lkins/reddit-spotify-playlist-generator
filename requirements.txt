@@ -1,0 +1,5 @@
+click==6.7
+funcy==1.7.3
+praw==5.0.1
+prawcore==0.8.0
+spotipy==2.4.4
