@@ -1,6 +1,16 @@
+help:
+	@echo 'Usage:'
+	@echo '    venv|install|ltt|chill'
+
+venv:
+	virtualenv venv
+
+install:
+	./venv/bin/pip install -r requirements.txt
+
 ltt:
-	python3 main.py --username 'wilkinsss'
+	./venv/bin/python main.py --username 'wilkinsss'
 
 chill:
-	python3 main.py --username 'wilkinsss' --playlist_name '"/r/chillmusic" Top of this week' --subreddit 'chillmusic'
+	./venv/bin/python main.py --username 'wilkinsss' --playlist_name '"/r/chillmusic" Top of this week' --subreddit 'chillmusic'
 
