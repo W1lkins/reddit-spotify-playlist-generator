@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
 from collections import namedtuple
 from funcy.seqs import first
 import click
