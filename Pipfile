@@ -1,0 +1,27 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+certifi = "*"
+chardet = "*"
+click = "*"
+funcy = "*"
+idna = "*"
+packaging = "*"
+pip-review = "*"
+praw = "*"
+prawcore = "*"
+pyparsing = "*"
+requests = "*"
+six = "*"
+spotipy = "*"
+update-checker = "*"
+urllib3 = "*"
+yapf = "*"
+
+[requires]
+python_version = "3.5"

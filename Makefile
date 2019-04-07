@@ -1,16 +1,16 @@
+SHELL := /bin/bash
+
+.PHONY: run
+run: ## Run the script
+	@echo "+ $@"
+	python main.py
+
+.PHONY: lint
+lint: ## Lint using yapf
+	@echo "+ $@"
+	yapf -vvip *.py
+
+.PHONY: help
 help:
-	@echo 'Usage:'
-	@echo '    venv|install|ltt|chill'
-
-venv:
-	virtualenv venv
-
-install:
-	./venv/bin/pip install -r requirements.txt
-
-ltt:
-	./venv/bin/python main.py --username 'wilkinsss'
-
-chill:
-	./venv/bin/python main.py --username 'wilkinsss' --playlist_name '"/r/chillmusic" Top of this week' --subreddit 'chillmusic'
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | sed 's/^[^:]*://g' | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
