@@ -1,14 +1,27 @@
 SHELL := /bin/bash
 
+PIPENV := pipenv
+PYTHON := python
+YAPF := yapf
+
 .PHONY: run
 run: ## Run the script
 	@echo "+ $@"
-	python main.py
+	./generate.py
+
+.PHONY: install
+install: Pipfile Pipfile.lock ## Install deps
+	$(PIPENV) sync
+
+.PHONY: venv
+venv: ## Start a venv using pipenv
+	@echo "+ $@"
+	$(PIPENV) shell
 
 .PHONY: lint
 lint: ## Lint using yapf
 	@echo "+ $@"
-	yapf -vvip *.py
+	yapf --verbose --in-place --recursive .
 
 .PHONY: help
 help:
