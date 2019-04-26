@@ -1,4 +1,4 @@
-# listentothis-spotify
+# reddit-spotify-playlist-generator
 
 Set ENV variables:
 
