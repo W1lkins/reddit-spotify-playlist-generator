@@ -11,7 +11,7 @@ run: ## Run the script
 
 .PHONY: install
 install: Pipfile Pipfile.lock ## Install deps
-	$(PIPENV) sync
+	$(PIPENV) install --dev
 
 .PHONY: venv
 venv: ## Start a venv using pipenv
