@@ -1,8 +1,10 @@
 SHELL := /bin/bash
 
-PIPENV := pipenv
+PIP := pip
 PYTHON := python
-YAPF := yapf
+TEST := python -m unittest -v
+VENV := virtualenv venv
+LINT := black
 
 .PHONY: run
 run: ## Run the script
@@ -10,20 +12,24 @@ run: ## Run the script
 	./generate.py
 
 .PHONY: install
-install: Pipfile Pipfile.lock ## Install deps
-	$(PIPENV) install --dev
+install: requirements.txt ## Install deps
+	$(PIP) install -r requirements.txt
 
-.PHONY: venv
-venv: ## Start a venv using pipenv
+.PHONY: virtual
+virtual: ## Start a venv using virtualenv
 	@echo "+ $@"
-	$(PIPENV) shell
+	$(VENV)
 
 .PHONY: lint
 lint: ## Lint using yapf
 	@echo "+ $@"
-	yapf --verbose --in-place --recursive .
+	$(LINT) generate.py subreddit_to_playlist
+
+.PHONY: test
+test: ## Run the tests
+	@echo "+ $@"
+	$(TEST) tests/*test.py
 
 .PHONY: help
 help:
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | sed 's/^[^:]*://g' | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
-
+	@awk -F ':|##' '/^[^\t].+?:.*?##/ { printf "\033[36m%-30s\033[0m %s\n", $$1, $$NF }' $(MAKEFILE_LIST)

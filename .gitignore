@@ -125,4 +125,5 @@ dmypy.json
 # Custom
 .cache-wilkinsss 
 venv
+.vscode
 

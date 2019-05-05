@@ -12,8 +12,7 @@ class Playlist:
         self.spotify = None
 
     def _get_spotify_instance(self, username):
-        token = util.prompt_for_user_token(username,
-                                           scope="playlist-modify-public")
+        token = util.prompt_for_user_token(username, scope="playlist-modify-public")
         if not token:
             logger.critical("could not get token for user")
             sys.exit(1)
@@ -25,8 +24,11 @@ class Playlist:
         return (fmt.format(**song._asdict()) for song in self.songs)
 
     def _generate_track_ids(self, results):
-        return [(first(r.get("tracks", {}).get("items", {})) or {}).get("uri")
-                for r in results if r.get("tracks", {}).get("items")]
+        return [
+            (first(r.get("tracks", {}).get("items", {})) or {}).get("uri")
+            for r in results
+            if r.get("tracks", {}).get("items")
+        ]
 
     def create(self, playlist_name, username):
         return self.spotify.user_playlist_create(username, playlist_name)
@@ -36,8 +38,8 @@ class Playlist:
 
         logger.info("searching for %d songs on spotify" % len(self.songs))
         search_res = [
-            self.spotify.search(q=s, type="track", limit=1) for s in tqdm(
-                self._format_songs(), unit=" songs", total=len(self.songs))
+            self.spotify.search(q=s, type="track", limit=1)
+            for s in tqdm(self._format_songs(), unit=" songs", total=len(self.songs))
         ]
         track_ids = self._generate_track_ids(search_res)
         logger.info("found %d actual songs" % len(track_ids))
@@ -46,7 +48,8 @@ class Playlist:
         self.spotify.trace = False
         playlists = self.spotify.user_playlists(username)
         playlist_ids = [
-            playlist["id"] for playlist in playlists["items"]
+            playlist["id"]
+            for playlist in playlists["items"]
             if playlist["name"] == playlist_name
         ]
 
@@ -62,6 +65,5 @@ class Playlist:
             sys.exit(1)
 
         logger.info("replacing tracks in playlist")
-        self.spotify.user_playlist_replace_tracks(username, playlist_id,
-                                                  track_ids)
+        self.spotify.user_playlist_replace_tracks(username, playlist_id, track_ids)
         logger.info("playlist generation successful")
