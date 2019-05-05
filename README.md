@@ -65,10 +65,8 @@ SPOTIPY_CLIENT_SECRET=<spotify-client-secret>
 SPOTIPY_REDIRECT_URI=<local-callback-uri>
 ```
 
-Then, ensure python3.6 is installed and install
-[pipenv](https://pipenv.readthedocs.io/en/latest/) and run `make venv`.
+Then, ensure python3+ is installed and run `make virtual`.
 
-Next, run `make install` to install the libraries in `requirements.txt`.
+Next, run `source venv/bin/activate` then `make install` to install the libraries in `requirements.txt`.
 
 You should now be able to run `make` which will run `./generate.py`
-
