@@ -1,4 +1,4 @@
-SHELL := /bin/bash
+SHELL := bash
 
 PIP := pip
 PYTHON := python
